@@ -25,3 +25,7 @@ name=TEST
 
 ###
 
+
+GET http://localhost:8082/test/list
+
+
