@@ -2,6 +2,7 @@ package com.ibegu.dalaoadmin.controller;
 
 import com.ibegu.dalaoadmin.domain.Demo;
 import com.ibegu.dalaoadmin.domain.Test;
+import com.ibegu.dalaoadmin.resp.CommonResp;
 import com.ibegu.dalaoadmin.service.DemoService;
 import com.ibegu.dalaoadmin.service.TestService;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,9 +30,12 @@ public class DemoController {
 
 
     @GetMapping("/list")
-    public List<Demo> list(){
+    public CommonResp list(){
 
-        return demoService.list();
+        CommonResp<List<Demo>> resp = new CommonResp<>();
+        List<Demo> list = demoService.list();
+        resp.setContent(list);
+        return resp;
 
     }
 
