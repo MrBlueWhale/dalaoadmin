@@ -7,6 +7,7 @@ import com.ibegu.dalaoadmin.mapper.DemoMapper;
 import com.ibegu.dalaoadmin.mapper.TestMapper;
 import com.ibegu.dalaoadmin.req.DemoReq;
 import com.ibegu.dalaoadmin.resp.DemoResp;
+import com.ibegu.dalaoadmin.utils.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -43,14 +44,23 @@ public class DemoService {
         List<Demo> demoList = demoMapper.selectByExample(demoExample);
 
 
-        //利用循环从将demo封装为demoresp
-        List<DemoResp> demoRespList = new ArrayList<>();
-        for (Demo demo : demoList) {
-            DemoResp demoResp = new DemoResp();
-            BeanUtils.copyProperties(demo, demoResp);
-            // demoResp.setId(123L);
-            demoRespList.add(demoResp);
-        }
+
+        //将demo封装为demoresp
+
+        //法一：循环加单体复制
+        // List<DemoResp> demoRespList = new ArrayList<>();
+        // for (Demo demo : demoList) {
+        //     // DemoResp demoResp = new DemoResp();
+        //     // BeanUtils.copyProperties(demo, demoResp);
+        //     //单体对象复制
+        //     DemoResp demoResp = CopyUtil.copy(demo, DemoResp.class);
+        //     // demoResp.setId(123L);
+        //     demoRespList.add(demoResp);
+        // }
+
+        //法二：列表复制
+        List<DemoResp> demoRespList = CopyUtil.copyList(demoList, DemoResp.class);
+
 
         return demoRespList;
 
