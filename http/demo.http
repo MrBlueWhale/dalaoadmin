@@ -4,3 +4,5 @@
 ###
 GET http://localhost:8082/demo/list
 
+###
+GET http://localhost:8082/demo/list?name=测试
